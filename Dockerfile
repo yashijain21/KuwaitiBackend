@@ -1,18 +1,17 @@
-# Use a lightweight base image with Java 17
+# Use a lightweight Java 17 base image
 FROM eclipse-temurin:17-jdk-alpine
 
-# Expose the port your application is configured to use internally (1001).
+# Expose the internal port your Spring Boot app uses
 EXPOSE 1001
 
-# Create a volume for temporary files
+# Create a temp volume
 VOLUME /tmp
 
-# Define the JAR file name and path
-ARG JAR_FILE=target/waffleshakes-0.0.1-SNAPSHOT.jar
+# Automatically detect the JAR file inside target/
+ARG JAR_FILE=target/*.jar
 
-# Copy the JAR file into the container
+# Copy the JAR into the container
 COPY ${JAR_FILE} app.jar
 
-# Define the startup command (Entry Point). We will inject the PORT environment
-# variable during the Render setup.
+# Run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
