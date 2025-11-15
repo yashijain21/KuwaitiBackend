@@ -1,0 +1,9 @@
+package com.waffleandhshake.Repository;
+
+import com.waffleandhshake.Entity.Section;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+
+public interface SectionRepository extends JpaRepository<Section, Long> {
+    Optional<Section> findByKey(String key);
+}
